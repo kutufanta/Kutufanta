@@ -94,9 +94,24 @@
         .success-screen {
             display: none;
         }
+        /* Fotoğraf Stili */
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ff4b6e;
+            box-shadow: 0 6px 20px rgba(255, 75, 110, 0.25);
+            margin-bottom: 18px;
+            animation: popIn 0.5s ease;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
         .whatsapp-btn {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 15px;
             background: #25D366;
             color: white;
             text-decoration: none;
@@ -115,9 +130,9 @@
         <p class="subtitle">Detayları aşağıya bıraktım, onayını bekliyorum:</p>
         
         <div class="plan-details">
-            <div class="plan-item">📅 <strong>Tarih:</strong> bu hafta içi pazartesi veya perşembe</div>
-            <div class="plan-item">⏰ <strong>Saat:</strong> ben işten ne zaman çıkabilirsem</div>
-            <div class="plan-item">📍 <strong>Mekan:</strong> Sürpriz (büyük ihtimalle caminin ordaki park)</div>
+            <div class="plan-item">📅 <strong>Tarih:</strong> hafta içi pazartesi veya perşembe</div>
+            <div class="plan-item">⏰ <strong>Saat:</strong> saat farketmez ne zaman uygunsak</div>
+            <div class="plan-item">📍 <strong>Mekan:</strong> Sürpriz (caminin arkasındaki park)</div>
             <div class="plan-item">👗 <strong>Konsept:</strong> Şık & Rahat(scrubs)</div>
         </div>
 
@@ -128,11 +143,14 @@
     </div>
 
     <div class="card success-screen" id="successCard">
-        <h1>o zaman görüşütoruz fıstıkım 🥳</h1>
-        <p class="subtitle" style="margin-top: 15px;">O zaman hafta içi görüşmek üzere! Onayını bana iletmek için aşağıdaki butona basabilirsin:</p>
+        <!-- YÜKLEDİĞİN FOTOĞRAFIN ADI BURADA YAZMALI -->
+        <img src="benim-fotom.jpg" alt="Ben" class="profile-photo">
         
-        <!-- 05330481315 -->
-        <a id="waLink" href="https://wa.me/905XXXXXXXXX?text=Date%20plan%C4%B1n%C4%B1%20onaylad%C4%B1m!%20%E2%9D%A4%EF%B8%8F" target="_blank" class="whatsapp-btn">
+        <h1>Harika! Randevumuz Kesinleşti 🥳</h1>
+        <p class="subtitle" style="margin-top: 12px;">O zaman cumartesi akşamı görüşmek üzere! Onayını bana iletmek için aşağıdaki butona basabilirsin:</p>
+        
+        <!-- TELEFON NUMARANI BURAYA YAZ -->
+        <a id="waLink" href="https://wa.me/905330481315?text=Date%20plan%C4%B1n%C4%B1%20onaylad%C4%B1m!%20%E2%9D%A4%EF%B8%8F" target="_blank" class="whatsapp-btn">
             WhatsApp'tan Onayı Gönder 📲
         </a>
     </div>
@@ -140,9 +158,6 @@
     <script>
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) - (window.innerWidth / 2 - 100);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) - (window.innerHeight / 2 - 100);
-            
             noBtn.style.position = 'fixed';
             noBtn.style.left = Math.max(20, Math.min(window.innerWidth - 120, Math.random() * window.innerWidth)) + 'px';
             noBtn.style.top = Math.max(20, Math.min(window.innerHeight - 60, Math.random() * window.innerHeight)) + 'px';
