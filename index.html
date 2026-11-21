@@ -1,1 +1,158 @@
-<h1>Merhaba, bu benim sitem!</h1>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Bir Davet ✨</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            background-color: #ffe6ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 75, 110, 0.15);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        h1 {
+            color: #ff4b6e;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p.subtitle {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+        .plan-details {
+            background: #fff5f7;
+            border-radius: 15px;
+            padding: 18px;
+            text-align: left;
+            margin-bottom: 25px;
+            border: 1px dashed #ff8fa3;
+        }
+        .plan-item {
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .plan-item:last-child {
+            margin-bottom: 0;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            min-height: 50px;
+        }
+        button {
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #yesBtn {
+            background: #ff4b6e;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 75, 110, 0.4);
+        }
+        #yesBtn:hover {
+            transform: scale(1.05);
+            background: #e6395b;
+        }
+        #noBtn {
+            background: #e0e0e0;
+            color: #555;
+            position: relative;
+        }
+        .success-screen {
+            display: none;
+        }
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="inviteCard">
+        <h1>Senin İçin Küçük Bir Planım Var ✨</h1>
+        <p class="subtitle">Detayları aşağıya bıraktım, onayını bekliyorum:</p>
+        
+        <div class="plan-details">
+            <div class="plan-item">📅 <strong>Tarih:</strong> bu hafta içi pazartesi veya perşembe</div>
+            <div class="plan-item">⏰ <strong>Saat:</strong> ben işten ne zaman çıkabilirsem</div>
+            <div class="plan-item">📍 <strong>Mekan:</strong> Sürpriz (büyük ihtimalle caminin ordaki park)</div>
+            <div class="plan-item">👗 <strong>Konsept:</strong> Şık & Rahat(scrubs)</div>
+        </div>
+
+        <div class="buttons">
+            <button id="yesBtn" onclick="acceptDate()">Onaylıyorum ❤️</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Düşüneyim 🤔</button>
+        </div>
+    </div>
+
+    <div class="card success-screen" id="successCard">
+        <h1>o zaman görüşütoruz fıstıkım 🥳</h1>
+        <p class="subtitle" style="margin-top: 15px;">O zaman hafta içi görüşmek üzere! Onayını bana iletmek için aşağıdaki butona basabilirsin:</p>
+        
+        <!-- 05330481315 -->
+        <a id="waLink" href="https://wa.me/905XXXXXXXXX?text=Date%20plan%C4%B1n%C4%B1%20onaylad%C4%B1m!%20%E2%9D%A4%EF%B8%8F" target="_blank" class="whatsapp-btn">
+            WhatsApp'tan Onayı Gönder 📲
+        </a>
+    </div>
+
+    <script>
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) - (window.innerWidth / 2 - 100);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) - (window.innerHeight / 2 - 100);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = Math.max(20, Math.min(window.innerWidth - 120, Math.random() * window.innerWidth)) + 'px';
+            noBtn.style.top = Math.max(20, Math.min(window.innerHeight - 60, Math.random() * window.innerHeight)) + 'px';
+        }
+
+        function acceptDate() {
+            document.getElementById('inviteCard').style.display = 'none';
+            document.getElementById('successCard').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
