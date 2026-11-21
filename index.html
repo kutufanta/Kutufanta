@@ -94,7 +94,6 @@
         .success-screen {
             display: none;
         }
-        /* Fotoğraf Stili */
         .profile-photo {
             width: 150px;
             height: 150px;
@@ -121,6 +120,54 @@
             font-size: 15px;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
+
+        /* Parlayan Balon Efektleri */
+        .balloon {
+            position: fixed;
+            bottom: -120px;
+            width: 55px;
+            height: 68px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            z-index: 20;
+            pointer-events: none;
+            animation: floatUp linear forwards, glowPulse 0.8s infinite alternate;
+        }
+        /* Balonun ışık yansıması */
+        .balloon::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 12px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.65);
+            border-radius: 50%;
+            transform: rotate(25deg);
+        }
+        /* Balon ipi */
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            width: 2px;
+            height: 35px;
+            background: rgba(150, 150, 150, 0.6);
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-125vh) rotate(15deg);
+                opacity: 0;
+            }
+        }
+        @keyframes glowPulse {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.3); }
+        }
     </style>
 </head>
 <body>
@@ -130,10 +177,10 @@
         <p class="subtitle">Detayları aşağıya bıraktım, onayını bekliyorum:</p>
         
         <div class="plan-details">
-            <div class="plan-item">📅 <strong>Tarih:</strong> hafta içi pazartesi veya perşembe</div>
-            <div class="plan-item">⏰ <strong>Saat:</strong> saat farketmez ne zaman uygunsak</div>
+            <div class="plan-item">📅 <strong>Tarih:</strong> Bu hafta içi pazartesi veya perşembe</div>
+            <div class="plan-item">⏰ <strong>Saat:</strong> öğle saatleri</div>
             <div class="plan-item">📍 <strong>Mekan:</strong> Sürpriz (caminin arkasındaki park)</div>
-            <div class="plan-item">👗 <strong>Konsept:</strong> Şık & Rahat(scrubs)</div>
+            <div class="plan-item">👗 <strong>Konsept:</strong> Şık & Rahat(SCRUBS)</div>
         </div>
 
         <div class="buttons">
@@ -143,13 +190,12 @@
     </div>
 
     <div class="card success-screen" id="successCard">
-        <!-- image.png -->
         <img src="image.png" alt="Ben" class="profile-photo">
         
         <h1>Harika! Randevumuz Kesinleşti 🥳</h1>
-        <p class="subtitle" style="margin-top: 12px;">O zaman cumartesi akşamı görüşmek üzere! Onayını bana iletmek için aşağıdaki butona basabilirsin:</p>
+        <p class="subtitle" style="margin-top: 12px;">O zaman hafta içi ne zaman uygunsak görüşmek üzere! Onayını bana iletmek için aşağıdaki butona basabilirsin:</p>
         
-        <!-- 05330481315 -->
+        <!-- TELEFON NUMARANI BURAYA YAZ -->
         <a id="waLink" href="https://wa.me/905330481315?text=Date%20plan%C4%B1n%C4%B1%20onaylad%C4%B1m!%20%E2%9D%A4%EF%B8%8F" target="_blank" class="whatsapp-btn">
             WhatsApp'tan Onayı Gönder 📲
         </a>
@@ -163,9 +209,74 @@
             noBtn.style.top = Math.max(20, Math.min(window.innerHeight - 60, Math.random() * window.innerHeight)) + 'px';
         }
 
+        // Parlayan Balonlar Oluşturma
+        function launchBalloons() {
+            const colors = ['#ff4b6e', '#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff', '#06d6a0'];
+            
+            for (let i = 0; i < 35; i++) {
+                setTimeout(() => {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    balloon.style.backgroundColor = color;
+                    balloon.style.boxShadow = `0 0 20px ${color}, inset -5px -5px 15px rgba(0,0,0,0.15)`;
+                    balloon.style.left = Math.random() * 95 + 'vw';
+                    balloon.style.animationDuration = (Math.random() * 2.5 + 3) + 's';
+                    
+                    document.body.appendChild(balloon);
+                    
+                    setTimeout(() => {
+                        balloon.remove();
+                    }, 5500);
+                }, i * 90);
+            }
+        }
+
+        // Tarayıcı Üzerinden Gerçekçi Alkış Sesi Üretme
+        function playApplause() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            
+            const ctx = new AudioContext();
+            const duration = 3.2;
+            const bufferSize = ctx.sampleRate * duration;
+            const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            // Birden fazla kişinin el çırpma ritmini simüle et
+            for (let c = 0; c < 45; c++) {
+                const startTime = ctx.currentTime + (Math.random() * 2.4);
+                const source = ctx.createBufferSource();
+                source.buffer = noiseBuffer;
+
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.value = 900 + Math.random() * 900;
+                filter.Q.value = 1.2;
+
+                const gain = ctx.createGain();
+                gain.gain.setValueAtTime(0.001, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.22, startTime + 0.015);
+                gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.14);
+
+                source.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+
+                source.start(startTime, Math.random() * 1, 0.15);
+            }
+        }
+
         function acceptDate() {
             document.getElementById('inviteCard').style.display = 'none';
             document.getElementById('successCard').style.display = 'block';
+            launchBalloons();
+            playApplause();
         }
     </script>
 
