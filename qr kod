@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Araç Sahibi ile İletişim</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1e293b 0%, #090d16 100%);
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Arka plan ışık halkası */
+    .bg-glow {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulseGlow 5s ease-in-out infinite alternate;
+    }
+    @keyframes pulseGlow {
+      from { transform: translateX(-50%) scale(0.95); opacity: 0.7; }
+      to { transform: translateX(-50%) scale(1.1); opacity: 1; }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      background: rgba(30, 41, 59, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 22px;
+      padding: 26px 22px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      animation: cardEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(18px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Üst araç görseli */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .car-badge {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(14, 165, 233, 0.1));
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+    }
+    .car-badge svg {
+      width: 44px;
+      height: 44px;
+      stroke: #60a5fa;
+      animation: floatCar 3s ease-in-out infinite;
+    }
+    @keyframes floatCar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    h1 {
+      font-size: 1.24rem;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    p.desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
