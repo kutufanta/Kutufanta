@@ -1,284 +1,401 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Özel Bir Davet ✨</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-            background-color: #ffe6ea;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            overflow: hidden;
-        }
-        .card {
-            background: white;
-            padding: 35px 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 75, 110, 0.15);
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-        h1 {
-            color: #ff4b6e;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        p.subtitle {
-            color: #666;
-            font-size: 15px;
-            margin-bottom: 25px;
-        }
-        .plan-details {
-            background: #fff5f7;
-            border-radius: 15px;
-            padding: 18px;
-            text-align: left;
-            margin-bottom: 25px;
-            border: 1px dashed #ff8fa3;
-        }
-        .plan-item {
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .plan-item:last-child {
-            margin-bottom: 0;
-        }
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            position: relative;
-            min-height: 50px;
-        }
-        button {
-            padding: 12px 28px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        #yesBtn {
-            background: #ff4b6e;
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 75, 110, 0.4);
-        }
-        #yesBtn:hover {
-            transform: scale(1.05);
-            background: #e6395b;
-        }
-        #noBtn {
-            background: #e0e0e0;
-            color: #555;
-            position: relative;
-        }
-        .success-screen {
-            display: none;
-        }
-        .profile-photo {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid #ff4b6e;
-            box-shadow: 0 6px 20px rgba(255, 75, 110, 0.25);
-            margin-bottom: 18px;
-            animation: popIn 0.5s ease;
-        }
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .whatsapp-btn {
-            display: inline-block;
-            margin-top: 15px;
-            background: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 15px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Araç Sahibi ile İletişim</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1e293b 0%, #090d16 100%);
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
 
-        /* Parlayan Balon Efektleri */
-        .balloon {
-            position: fixed;
-            bottom: -120px;
-            width: 55px;
-            height: 68px;
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            z-index: 20;
-            pointer-events: none;
-            animation: floatUp linear forwards, glowPulse 0.8s infinite alternate;
-        }
-        /* Balonun ışık yansıması */
-        .balloon::before {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            width: 12px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.65);
-            border-radius: 50%;
-            transform: rotate(25deg);
-        }
-        /* Balon ipi */
-        .balloon::after {
-            content: '';
-            position: absolute;
-            bottom: -35px;
-            left: 50%;
-            width: 2px;
-            height: 35px;
-            background: rgba(150, 150, 150, 0.6);
-        }
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-125vh) rotate(15deg);
-                opacity: 0;
-            }
-        }
-        @keyframes glowPulse {
-            0% { filter: brightness(1); }
-            100% { filter: brightness(1.3); }
-        }
-    </style>
+    /* Arka plan ışık halkası */
+    .bg-glow {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulseGlow 5s ease-in-out infinite alternate;
+    }
+    @keyframes pulseGlow {
+      from { transform: translateX(-50%) scale(0.95); opacity: 0.7; }
+      to { transform: translateX(-50%) scale(1.1); opacity: 1; }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      background: rgba(30, 41, 59, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 22px;
+      padding: 26px 22px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      animation: cardEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(18px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Üst araç görseli */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .car-badge {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(14, 165, 233, 0.1));
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+    }
+    .car-badge svg {
+      width: 44px;
+      height: 44px;
+      stroke: #60a5fa;
+      animation: floatCar 3s ease-in-out infinite;
+    }
+    @keyframes floatCar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    h1 {
+      font-size: 1.24rem;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    p.desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.45;
+    }
+
+    /* Kanal seçici (Hap butonlar) */
+    .channel-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.75);
+      padding: 5px;
+      border-radius: 14px;
+      border: 1px solid rgba(71, 85, 105, 0.45);
+      margin-bottom: 18px;
+    }
+    .channel-btn {
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      padding: 9px 10px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .channel-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    }
+    .channel-btn.active[data-channel="whatsapp"] {
+      background: #16a34a;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+    }
+
+    /* Seçenek kartları */
+    .options { display: flex; flex-direction: column; gap: 11px; }
+    button.option-btn {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      text-align: left;
+      padding: 13px 15px;
+      color: #f8fafc;
+      background: rgba(51, 65, 85, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    button.option-btn:hover {
+      background: rgba(59, 130, 246, 0.22);
+      border-color: #60a5fa;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.45);
+    }
+    button.option-btn:active {
+      transform: scale(0.98);
+    }
+
+    .opt-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .opt-icon svg { width: 21px; height: 21px; }
+    .icon-amber { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
+    .icon-red   { background: rgba(239, 68, 68, 0.18);  color: #f87171; }
+    .icon-blue  { background: rgba(59, 130, 246, 0.18); color: #60a5fa; }
+    .icon-teal  { background: rgba(20, 184, 166, 0.18); color: #2dd4bf; }
+
+    .opt-text { flex: 1; }
+    .opt-title { display: block; font-size: 0.97rem; font-weight: 650; margin-bottom: 2px; }
+    .opt-sub { display: block; font-size: 0.78rem; color: #94a3b8; line-height: 1.3; }
+
+    .arrow { color: #64748b; font-size: 1.1rem; transition: transform 0.2s ease; }
+    button.option-btn:hover .arrow { transform: translateX(3px); color: #93c5fd; }
+
+    /* Ripple dalga efekti */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(0);
+      animation: rippleAnim 0.55s linear;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Yönlendirme bildirimi (Toast) */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid #3b82f6;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 20;
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
 </head>
 <body>
+  <div class="bg-glow"></div>
 
-    <div class="card" id="inviteCard">
-        <h1>Senin İçin Küçük Bir Planım Var ✨</h1>
-        <p class="subtitle">Detayları aşağıya bıraktım, onayını bekliyorum:</p>
-        
-        <div class="plan-details">
-            <div class="plan-item">📅 <strong>Tarih:</strong> Bu hafta içi pazartesi veya perşembe</div>
-            <div class="plan-item">⏰ <strong>Saat:</strong> öğle saatleri</div>
-            <div class="plan-item">📍 <strong>Mekan:</strong> Sürpriz (caminin arkasındaki park)</div>
-            <div class="plan-item">👗 <strong>Konsept:</strong> Şık & Rahat(SCRUBS)</div>
-        </div>
-
-        <div class="buttons">
-            <button id="yesBtn" onclick="acceptDate()">Onaylıyorum ❤️</button>
-            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Düşüneyim 🤔</button>
-        </div>
+  <div class="card">
+    <div class="hero-visual">
+      <div class="car-badge">
+        <!-- Araç İkonu -->
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 17h14v-5l-2.2-5.2A2 2 0 0 0 15 5.5H9a2 2 0 0 0-1.8 1.3L5 12v5z"/>
+          <path d="M3 17h18"/>
+          <circle cx="7.5" cy="17.5" r="1.8"/>
+          <circle cx="16.5" cy="17.5" r="1.8"/>
+          <path d="M6.5 11.5h11"/>
+        </svg>
+      </div>
+      <h1>Araç sahibine neden ulaşmak istiyorsunuz?</h1>
+      <p class="desc">İlgili durumu seçin; mesaj ekranı hazır metinle otomatik olarak açılacaktır.</p>
     </div>
 
-    <div class="card success-screen" id="successCard">
-        <img src="image.png" alt="Ben" class="profile-photo">
-        
-        <h1>Harika! Randevumuz Kesinleşti 🥳</h1>
-        <p class="subtitle" style="margin-top: 12px;">O zaman hafta içi ne zaman uygunsak görüşmek üzere! Onayını bana iletmek için aşağıdaki butona basabilirsin:</p>
-        
-        <!-- TELEFON NUMARANI BURAYA YAZ -->
-        <a id="waLink" href="https://wa.me/905330481315?text=Date%20plan%C4%B1n%C4%B1%20onaylad%C4%B1m!%20%E2%9D%A4%EF%B8%8F" target="_blank" class="whatsapp-btn">
-            WhatsApp'tan Onayı Gönder 📲
-        </a>
+    <!-- İletişim Kanalı Seçimi -->
+    <div class="channel-switch" role="tablist">
+      <button type="button" class="channel-btn active" data-channel="sms">
+        💬 SMS ile Gönder
+      </button>
+      <button type="button" class="channel-btn" data-channel="whatsapp">
+        📱 WhatsApp ile Gönder
+      </button>
     </div>
 
-    <script>
-        function moveButton() {
-            const noBtn = document.getElementById('noBtn');
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = Math.max(20, Math.min(window.innerWidth - 120, Math.random() * window.innerWidth)) + 'px';
-            noBtn.style.top = Math.max(20, Math.min(window.innerHeight - 60, Math.random() * window.innerHeight)) + 'px';
+    <!-- Seçenek Butonları -->
+    <div class="options">
+      <button class="option-btn" data-msg="Merhaba, aracınız şu an geçişi veya park alanını engelleyecek şekilde park edilmiş görünüyor. Müsait olduğunuzda ilgilenebilir misiniz?">
+        <span class="opt-icon icon-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/>
+          </svg>
+        </span>
+        <span class="opt-text">
+          <span class="opt-title">Aracınız yanlış yerde</span>
+          <span class="opt-sub">Park veya geçiş engeli bildirimi</span>
+        </span>
+        <span class="arrow">›</span>
+      </button>
+
+      <button class="option-btn" data-msg="Merhaba, aracınıza istemeden hasar verdim. Durumu telafi etmek ve görüşmek için bana bu numaradan ulaşabilirsiniz.">
+        <span class="opt-icon icon-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </span>
+        <span class="opt-text">
+          <span class="opt-title">Aracınıza hasar verdim</span>
+          <span class="opt-sub">Sürtme, çarpma veya maddi hasar bildirimi</span>
+        </span>
+        <span class="arrow">›</span>
+      </button>
+
+      <button class="option-btn" data-msg="Merhaba, aracınızda bir sorun (far/cam açık kalması, lastik inmesi vb.) fark ettim. Bilginiz olsun istedim.">
+        <span class="opt-icon icon-teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </span>
+        <span class="opt-text">
+          <span class="opt-title">Aracınızda bir problem var</span>
+          <span class="opt-sub">Açık cam, far, alarm veya lastik uyarısı</span>
+        </span>
+        <span class="arrow">›</span>
+      </button>
+
+      <button class="option-btn" data-msg="Merhaba, sizinle paylaşmam gereken kişisel bir konu hakkında ulaşmak istiyorum. Müsait olduğunuzda dönüş yapabilir misiniz?">
+        <span class="opt-icon icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        <span class="opt-text">
+          <span class="opt-title">Kişisel bir meselem var</span>
+          <span class="opt-sub">Özel görüşme veya doğrudan iletişim talebi</span>
+        </span>
+        <span class="arrow">›</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Mesaj ekranı açılıyor...</div>
+
+  <script>
+    const PHONE_RAW = "05330481315";
+    const PHONE_INTL = "905330481315";
+    let selectedChannel = "sms";
+
+    // Harici dosya gerektirmeyen hafif Web Audio ses sentezleyici
+    let audioCtx = null;
+    function playTone(type = "tap") {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === "switch") {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(760, now + 0.08);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+          osc.start(now);
+          osc.stop(now + 0.09);
+        } else {
+          // Gönderim bildirimi (iki notalı yumuşak onay sesi)
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(587.33, now);       // D5
+          osc.frequency.setValueAtTime(880, now + 0.09);   // A5
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+          osc.start(now);
+          osc.stop(now + 0.28);
         }
+      } catch (e) {}
+    }
 
-        // Parlayan Balonlar Oluşturma
-        function launchBalloons() {
-            const colors = ['#ff4b6e', '#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff', '#06d6a0'];
-            
-            for (let i = 0; i < 35; i++) {
-                setTimeout(() => {
-                    const balloon = document.createElement('div');
-                    balloon.className = 'balloon';
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    balloon.style.backgroundColor = color;
-                    balloon.style.boxShadow = `0 0 20px ${color}, inset -5px -5px 15px rgba(0,0,0,0.15)`;
-                    balloon.style.left = Math.random() * 95 + 'vw';
-                    balloon.style.animationDuration = (Math.random() * 2.5 + 3) + 's';
-                    
-                    document.body.appendChild(balloon);
-                    
-                    setTimeout(() => {
-                        balloon.remove();
-                    }, 5500);
-                }, i * 90);
-            }
-        }
+    // Kanal seçimi (SMS / WhatsApp)
+    document.querySelectorAll(".channel-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".channel-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        selectedChannel = btn.dataset.channel;
+        playTone("switch");
+      });
+    });
 
-        // Tarayıcı Üzerinden Gerçekçi Alkış Sesi Üretme
-        function playApplause() {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-            
-            const ctx = new AudioContext();
-            const duration = 3.2;
-            const bufferSize = ctx.sampleRate * duration;
-            const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-            const output = noiseBuffer.getChannelData(0);
-            
-            for (let i = 0; i < bufferSize; i++) {
-                output[i] = Math.random() * 2 - 1;
-            }
+    // Seçenek tıklama, ripple dalga efekti, ses ve yönlendirme
+    document.querySelectorAll(".option-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        // Dalga efekti oluştur
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement("span");
+        const size = Math.max(rect.width, rect.height);
+        ripple.className = "ripple";
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+        ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
 
-            // Birden fazla kişinin el çırpma ritmini simüle et
-            for (let c = 0; c < 45; c++) {
-                const startTime = ctx.currentTime + (Math.random() * 2.4);
-                const source = ctx.createBufferSource();
-                source.buffer = noiseBuffer;
+        playTone("send");
 
-                const filter = ctx.createBiquadFilter();
-                filter.type = 'bandpass';
-                filter.frequency.value = 900 + Math.random() * 900;
-                filter.Q.value = 1.2;
+        const toast = document.getElementById("toast");
+        toast.textContent = selectedChannel === "whatsapp"
+          ? "WhatsApp mesaj ekranı açılıyor..."
+          : "SMS uygulaması açılıyor...";
+        toast.classList.add("show");
 
-                const gain = ctx.createGain();
-                gain.gain.setValueAtTime(0.001, startTime);
-                gain.gain.exponentialRampToValueAtTime(0.22, startTime + 0.015);
-                gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.14);
+        const message = btn.getAttribute("data-msg");
+        const encodedMsg = encodeURIComponent(message);
 
-                source.connect(filter);
-                filter.connect(gain);
-                gain.connect(ctx.destination);
-
-                source.start(startTime, Math.random() * 1, 0.15);
-            }
-        }
-
-        function acceptDate() {
-            document.getElementById('inviteCard').style.display = 'none';
-            document.getElementById('successCard').style.display = 'block';
-            launchBalloons();
-            playApplause();
-        }
-    </script>
-
+        setTimeout(() => {
+          if (selectedChannel === "whatsapp") {
+            window.location.href = `https://wa.me/${PHONE_INTL}?text=${encodedMsg}`;
+            return;
+          }
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+          const separator = isIOS ? "&" : "?";
+          window.location.href = `sms:${PHONE_RAW}${separator}body=${encodedMsg}`;
+        }, 260);
+      });
+    });
+  </script>
 </body>
 </html>
